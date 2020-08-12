@@ -32,39 +32,4 @@ namespace ProtoFS {
         }
     };
 }
-/*
-void GetFiles(char* driveletter, file filesArray[]) {
-  WIN32_FIND_DATA findFileData;
-  HANDLE hFind;
-
-  file foundFiles[NUMFILES] = {NULL};
-
-  size_t currentFileDirCount = 0;
-
-  char* driveWav;
-  sprintf(driveWav, "%s\\.wav", driveletter);
-
-  hFind = FindFirstFileA(driveWav, &findFileData);
-
-  do {
-    XVideoWaitForVBlank();
-    debugClearScreen();
-    if (findFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
-      continue;
-    }
-    else {
-      if (currentFileDirCount < NUMFILES) {
-        foundFiles[currentFileDirCount].fileIndex = currentFileDirCount;
-        strcpy(foundFiles[currentFileDirCount].fileName, findFileData.cFileName);
-        sprintf(foundFiles[currentFileDirCount].filePath, "%s\\%s", driveletter, foundFiles[currentFileDirCount].fileName);
-        currentFileDirCount++;
-      }
-    }
-  }
-  while (FindNextFileA(hFind, &findFileData) != 0);
-  FindClose(hFind);
-
-  filesArray = foundFiles;
-}
- */
 #endif //FILESYSTEMX_FILESYSTEM_XBX_HPP
