@@ -16,7 +16,7 @@ int main() {
     ProtoFS::FilesystemX fs("/");
     std::vector<ProtoFS::fileEntry> ret = fs.listDir();
     for (auto file : ret) {
-        printf(file.filePath.c_str());
+        printf((file.filePath+"\n").c_str());
     }
     printf("Completed unit tests successfully\n");
 }
