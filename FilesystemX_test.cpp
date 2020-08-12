@@ -13,5 +13,10 @@ int main() {
     assert(myFile[2] == "/home/test/");
     assert(myFile[3] == "/home/test/testFile.");
     assert(myFile.getExt() == ".txt");
+    ProtoFS::FilesystemX fs("/");
+    std::vector<ProtoFS::fileEntry> ret = fs.listDir();
+    for (auto file : ret) {
+        printf(file.filePath.c_str());
+    }
     printf("Completed unit tests successfully\n");
 }

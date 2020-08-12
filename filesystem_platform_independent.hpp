@@ -7,6 +7,7 @@
 
 #include <string>
 #include <stdexcept>
+#include <vector>
 
 namespace ProtoFS {
     enum fileType {
@@ -44,11 +45,13 @@ namespace ProtoFS {
         }
         std::string getExt() {
             int lastDot = filePath.rfind('.');
-            return filePath.substr(lastDot,filePath.length());
+            return filePath.substr(lastDot,filePath.length()-lastDot);
         }
     };
-    class Filelister {
+    class FilesystemTemplate {
+    public:
         std::string path;
+        virtual std::vector<fileEntry> listDir() = 0;
     };
 }
 
