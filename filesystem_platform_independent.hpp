@@ -27,8 +27,8 @@ namespace ProtoFS {
         std::string operator[] (const int index) {
             int j = 0;
             bool outofbounds = false;
-            for (int i = 0; i < index; i++) {
-                while (filePath[j] != '/' || filePath[j] != '\\' || filePath[j] != '.') {
+            for (int i = 0; i < index+1; i++) {
+                while (!(filePath.substr(j,1) == "/" || filePath.substr(j,1) == "\\" || filePath.substr(j,1) == ".")) {
                     if (filePath.length() == j) {
                         outofbounds = true;
                         break;
@@ -36,18 +36,19 @@ namespace ProtoFS {
                     j++;
                 }
                 if (outofbounds) {
-                    break;
+                    throw std::out_of_range("String index out of bounds");
                 }
                 j++;
             }
-            if (outofbounds) {
-                throw std::out_of_range("String index out of bounds");
-                return "OUT_OF_RANGE_ERROR";
-            }
-            else {
-                return filePath.substr(0, j);
-            }
+            return filePath.substr(0, j);
         }
+        std::string getExt() {
+            int lastDot = filePath.rfind('.');
+            return filePath.substr(lastDot,filePath.length());
+        }
+    };
+    class Filelister {
+        std::string path;
     };
 }
 

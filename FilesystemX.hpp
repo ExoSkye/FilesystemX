@@ -1,4 +1,5 @@
-#ifdef NXDK
+#if defined(NXDK)
+|| defined(_WIN32)
 #include "filesystem_xbx.hpp"
 #elif __cplusplus > 201703L
 #include "filesystem_cpp17.hpp"
