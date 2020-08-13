@@ -26,7 +26,10 @@ namespace ProtoFS {
             DIR *dp;
             struct dirent *ep;
             dp = opendir(path.c_str());
-            assert(dp != NULL);
+            if (dp == NULL) {
+                printf("Couldn't open the directory %s, it likely doesn't exist or this user doesn't have access rights to it",path.c_str());
+                return ret;
+            }
             while ((ep = readdir(dp)) != NULL) {
                 fileType _type = File;
                 if (ep->d_type == *std::string("DT_DIR").c_str())
