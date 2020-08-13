@@ -15,6 +15,7 @@ namespace ProtoFS {
         File,
         Folder
     };
+
     class fileEntry {
     public:
         fileEntry(std::string _fileName, std::string _filePath, fileType _type) {
