@@ -38,7 +38,11 @@ namespace ProtoFS {
                     j++;
                 }
                 if (outofbounds) {
+#ifndef nxdk
                     throw std::out_of_range("String index out of bounds");
+#else
+                    break;
+#endif
                 }
                 j++;
             }

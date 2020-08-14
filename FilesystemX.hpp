@@ -1,5 +1,4 @@
-#if defined(NXDK)
-|| defined(_WIN32)
+#if defined(NXDK) || defined(_WIN32)
     //#pragma message "Using nxdk/win32 version of FilesystemX"
     #include "filesystem_xbx.hpp"
 #elif __cplusplus > 201600L
