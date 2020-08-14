@@ -28,6 +28,9 @@ namespace ProtoFS {
                 } while (FindNextFile(hFind, &data));
                 FindClose(hFind);
             }
+            else {
+                return std::vector<fileEntry>(fileEntry("INVALID HANDLE","INVALID HANDLE",File));
+            }
             return ret;
         }
     };
