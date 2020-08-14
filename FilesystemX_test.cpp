@@ -13,7 +13,11 @@ int main() {
     assert(myFile[2] == "/home/test/");
     assert(myFile[3] == "/home/test/testFile.");
     assert(myFile.getExt() == ".txt");
+#ifdef __linux__
     ProtoFS::FilesystemX fs("/home/");
+#else
+    ProtoFS::FilesystemX fs("C:\\");
+#endif
     std::vector<ProtoFS::fileEntry> ret = fs.listDir();
     for (int i = 0; i < ret.size(); i++) {
         printf((ret[i].filePath+"\n").c_str());
