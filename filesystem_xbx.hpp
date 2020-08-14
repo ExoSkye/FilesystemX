@@ -16,7 +16,7 @@ namespace ProtoFS {
         std::vector<fileEntry> listDir() override {
             std::vector<fileEntry> ret;
             WIN32_FIND_DATA data;
-            HANDLE hFind = FindFirstFile(path.c_str(), &data);      // DIRECTORY
+            HANDLE hFind = hFind = FindFirstFile(path.c_str(), &data);      // DIRECTORY
 
             if ( hFind != INVALID_HANDLE_VALUE ) {
                 do {
@@ -25,11 +25,11 @@ namespace ProtoFS {
                         type = Folder;
                     }
                     ret.emplace_back(fileEntry(data.cAlternateFileName,data.cFileName,type));
-                } while (FindNextFile(hFind, &data));
+                } while (FindNextFile(hFind, &data) != 0);
                 FindClose(hFind);
             }
             else {
-                return std::vector<fileEntry>(fileEntry("INVALID HANDLE","INVALID HANDLE",File));
+                ret.emplace_back(fileEntry("INVALID HANDLE","INVALID HANDLE",File));
             }
             return ret;
         }
