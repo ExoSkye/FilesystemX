@@ -24,12 +24,12 @@ namespace ProtoFS {
                     if (data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
                         type = Folder;
                     }
-                    ret.emplace_back(fileEntry(data.cAlternateFileName,data.cFileName,type));
+                    ret.emplace_back(fileEntry((data.cFileName, "\n"),(data.cAlternateFileName, "\n"),type));
                 } while (FindNextFile(hFind, &data) != 0);
                 FindClose(hFind);
             }
             else {
-                ret.emplace_back(fileEntry("INVALID HANDLE","INVALID HANDLE",File));
+                ret.emplace_back(fileEntry("INVALID HANDLE\n","INVALID HANDLE\n",File));
             }
             return ret;
         }
