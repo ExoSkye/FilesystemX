@@ -24,7 +24,7 @@ namespace ProtoFS {
                     if (data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
                         type = Folder;
                     }
-                    ret.emplace_back(fileEntry((data.cFileName, "\n"),(data.cAlternateFileName, "\n"),type));
+                    ret.emplace_back(fileEntry(data.cFileName, data.cAlternateFileName, type));
                 } while (FindNextFile(hFind, &data) != 0);
                 FindClose(hFind);
             }
