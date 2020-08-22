@@ -16,7 +16,7 @@ int main() {
 #ifdef __linux__
     ProtoFS::FilesystemX fs("/home/");
 #else
-    ProtoFS::FilesystemX fs("C:\\*.*");
+    ProtoFS::FilesystemX fs("C:\\");
 #endif
     std::vector<ProtoFS::fileEntry> ret = fs.listDir();
     for (int i = 0; i < ret.size(); i++) {
