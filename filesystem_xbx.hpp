@@ -7,6 +7,8 @@
 
 #include "filesystem_platform_independent.hpp"
 #include "windows.h"
+#include <algorithm>
+
 namespace ProtoFS {
     class FilesystemX : public FilesystemTemplate {
     public:
@@ -14,6 +16,7 @@ namespace ProtoFS {
             path = _path;
         }
         std::vector<fileEntry> listDir() override {
+            std::replace(path.begin(),path.end(),"/","\\");
             std::vector<fileEntry> ret;
             WIN32_FIND_DATA data;
             HANDLE hFind = FindFirstFile(path.append("*.*").c_str(), &data);      // DIRECTORY

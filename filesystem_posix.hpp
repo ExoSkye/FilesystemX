@@ -13,6 +13,7 @@
 #include <sys/types.h>
 #include <dirent.h>
 #include <cassert>
+#include <algorithm>
 
 namespace ProtoFS {
     class FilesystemX : public FilesystemTemplate {
@@ -22,6 +23,7 @@ namespace ProtoFS {
         }
 
         std::vector <fileEntry> listDir() {
+            std::replace(path.begin(),path.end(),"\\","/");
             std::vector <fileEntry> ret;
             DIR *dp;
             struct dirent *ep;
