@@ -16,15 +16,15 @@ namespace ProtoFS {
         std::vector<fileEntry> listDir() override {
             std::vector<fileEntry> ret;
             WIN32_FIND_DATA data;
-            HANDLE hFind = FindFirstFile(path.c_str(), &data);      // DIRECTORY
-
+            HANDLE hFind = FindFirstFile(path.append("*.*").c_str(), &data);      // DIRECTORY
+            path = path.erase((path.length() - 3), path.length());
             if ( hFind != INVALID_HANDLE_VALUE ) {
                 do {
                     fileType type = File;
                     if (data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
                         type = Folder;
                     }
-                    ret.emplace_back(fileEntry(data.cFileName, data.cAlternateFileName, type));
+                    ret.emplace_back(fileEntry(data.cFileName, path + data.cFileName, type));
                 } while (FindNextFile(hFind, &data) != 0);
                 FindClose(hFind);
             }
