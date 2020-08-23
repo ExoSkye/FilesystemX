@@ -23,14 +23,17 @@ namespace ProtoFS {
             filePath = _filePath;
             type = _type;
         }
+
         std::string fileName;
         std::string filePath;
         fileType type;
-        std::string operator[] (const int index) {
+
+        std::string operator[](const int index) {
             int j = 0;
             bool outofbounds = false;
-            for (int i = 0; i < index+1; i++) {
-                while (!(filePath.substr(j,1) == "/" || filePath.substr(j,1) == "\\" || filePath.substr(j,1) == ".")) {
+            for (int i = 0; i < index + 1; i++) {
+                while (!(filePath.substr(j, 1) == "/" || filePath.substr(j, 1) == "\\" ||
+                         filePath.substr(j, 1) == ".")) {
                     if (filePath.length() == j) {
                         outofbounds = true;
                         break;
@@ -48,14 +51,17 @@ namespace ProtoFS {
             }
             return filePath.substr(0, j);
         }
+
         std::string getExt() {
             int lastDot = filePath.rfind('.');
-            return filePath.substr(lastDot,filePath.length()-lastDot);
+            return filePath.substr(lastDot, filePath.length() - lastDot);
         }
     };
+
     class FilesystemTemplate {
     public:
         std::string path;
+
         virtual std::vector<fileEntry> listDir() = 0;
     };
 }

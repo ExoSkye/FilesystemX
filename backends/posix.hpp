@@ -5,7 +5,7 @@
 #ifndef FILESYSTEMX_FILESYSTEM_POSIX_HPP
 #define FILESYSTEMX_FILESYSTEM_POSIX_HPP
 
-#include "filesystem_platform_independent.hpp"
+#include "support.hpp"
 
 #define _XOPEN_SOURCE 700
 
@@ -22,14 +22,15 @@ namespace ProtoFS {
             path = _path;
         }
 
-        std::vector <fileEntry> listDir() {
-            std::replace(path.begin(),path.end(),"\\","/");
-            std::vector <fileEntry> ret;
+        std::vector<fileEntry> listDir() {
+            std::replace(path.begin(), path.end(), "\\", "/");
+            std::vector<fileEntry> ret;
             DIR *dp;
             struct dirent *ep;
             dp = opendir(path.c_str());
             if (dp == NULL) {
-                printf("Couldn't open the directory %s, it likely doesn't exist or this user doesn't have access rights to it",path.c_str());
+                printf("Couldn't open the directory %s, it likely doesn't exist or this user doesn't have access rights to it",
+                       path.c_str());
                 return ret;
             }
             while ((ep = readdir(dp)) != NULL) {
@@ -40,7 +41,7 @@ namespace ProtoFS {
                 ret.push_back(temp);
             }
             (void) closedir(dp);
-            std::vector <fileEntry> vec;
+            std::vector<fileEntry> vec;
             std::copy(ret.begin(), ret.begin() + (ret.size() - 2), std::back_inserter(vec));
             return vec;
         }
