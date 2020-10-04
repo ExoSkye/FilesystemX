@@ -34,7 +34,7 @@ namespace ProtoFS {
             for (int i = 0; i < index + 1; i++) {
                 while (!(filePath.substr(j, 1) == "/" || filePath.substr(j, 1) == "\\" ||
                          filePath.substr(j, 1) == ".")) {
-                    if (filePath.length() == j) {
+                    if (filePath.length() == (long unsigned int)j) {
                         outofbounds = true;
                         break;
                     }
