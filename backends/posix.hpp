@@ -23,7 +23,7 @@ namespace ProtoFS {
         }
 
         std::vector<fileEntry> listDir() {
-            std::replace(path.begin(), path.end(), "\\", "/");
+            //std::replace(path.begin(), path.end(), "\\", "/");
             std::vector<fileEntry> ret;
             DIR *dp;
             struct dirent *ep;
@@ -41,9 +41,13 @@ namespace ProtoFS {
                 ret.push_back(temp);
             }
             (void) closedir(dp);
+            #ifdef FLX_IncludeSpecialDirs
+            return ret;
+            #else
             std::vector<fileEntry> vec;
-            std::copy(ret.begin(), ret.begin() + (ret.size() - 2), std::back_inserter(vec));
+            std::copy(ret.begin()+2, ret.begin()+ret.size(), std::back_inserter(vec));
             return vec;
+            #endif
         }
     };
 }

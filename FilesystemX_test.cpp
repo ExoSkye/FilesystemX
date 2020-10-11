@@ -1,10 +1,11 @@
 //
 // Created by bobro on 12/08/2020.
 //
-
+#define FLX_IncludeSpecialDirs
 #include "FilesystemX.hpp"
 #include <stdio.h>
 #include <cassert>
+
 
 int main() {
     printf("Starting FilesystemX unit tests\n");

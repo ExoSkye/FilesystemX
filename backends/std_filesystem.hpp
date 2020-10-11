@@ -38,6 +38,10 @@ namespace ProtoFS {
                 std::string filenameString = path.filename().string();
                 ret.emplace_back(fileEntry(filenameString, pathString, type));
             }
+            #ifdef FLX_IncludeSpecialDirs
+            ret.insert(ret.begin(),fileEntry(".",path+".",Folder));
+            ret.insert(ret.begin(),fileEntry("..",path+"..",Folder));
+            #endif
             return ret;
         }
     };

@@ -33,7 +33,13 @@ namespace ProtoFS {
             } else {
                 ret.emplace_back(fileEntry("INVALID HANDLE\n", "INVALID HANDLE\n", File));
             }
+            #ifdef FLX_IncludeSpecialDirs
             return ret;
+            #else
+            std::vector<fileEntry> vec;
+            std::copy(ret.begin()+2,ret.begin()+ret.size(),std::back_inserter(vec));
+            return vec;
+            #endif
         }
     };
 }
