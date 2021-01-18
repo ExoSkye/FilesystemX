@@ -29,9 +29,9 @@ namespace ProtoFS {
             std::vector<fileEntry> ret;
             for (const fs::directory_entry &entry : fs::directory_iterator(path)) {
                 // Is it a file / directory?
-                fileType type = Folder;
+                fileType type = File;
                 if (fs::is_directory(entry)) {
-                    type = File;
+                    type = Folder;
                 }
                 auto path = entry.path();
                 std::string pathString = path.string();
