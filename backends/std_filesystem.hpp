@@ -9,12 +9,12 @@
 
 #ifdef CPP17
 #include <filesystem>
+#include <fstream>
 namespace fs = std::filesystem;
 #endif
 #ifdef CPP14
-
 #include <experimental/filesystem>
-
+#include <fstream>
 namespace fs = std::experimental::filesystem;
 #endif
 
@@ -25,7 +25,7 @@ namespace ProtoFS {
             path = _path;
         }
 
-        std::vector<fileEntry> listDir() override {
+        std::vector<fileEntry> ls() override {
             std::vector<fileEntry> ret;
             for (const fs::directory_entry &entry : fs::directory_iterator(path)) {
                 // Is it a file / directory?
@@ -43,6 +43,20 @@ namespace ProtoFS {
             ret.insert(ret.begin(),fileEntry("..",path+"..",Folder));
             #endif
             return ret;
+        }
+
+        bool mk(fileEntry entry) override {
+            if (entry.type == File) {
+                std::ofstream file(entry.filePath.c_str());
+                return file.is_open();
+            }
+            else {
+                return fs::create_directory(entry.filePath);
+            }
+        }
+
+        bool rm(fileEntry entry) override {
+            return fs::remove(entry.filePath);
         }
     };
 }

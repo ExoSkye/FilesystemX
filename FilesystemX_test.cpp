@@ -20,7 +20,7 @@ int main() {
 #else
     ProtoFS::FilesystemX fs("C:\\");
 #endif
-    std::vector<ProtoFS::fileEntry> ret = fs.listDir();
+    std::vector<ProtoFS::fileEntry> ret = fs.ls();
     for (int i = 0; i < ret.size(); i++) {
         printf((ret[i].filePath + "\n").c_str());
     }

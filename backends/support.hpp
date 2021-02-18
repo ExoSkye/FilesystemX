@@ -62,7 +62,9 @@ namespace ProtoFS {
     public:
         std::string path;
 
-        virtual std::vector<fileEntry> listDir() = 0;
+        virtual std::vector<fileEntry> ls() = 0;
+        virtual bool mk(fileEntry entry) = 0;
+        virtual bool rm(fileEntry entry) = 0;
     };
 }
 

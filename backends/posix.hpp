@@ -14,6 +14,9 @@
 #include <dirent.h>
 #include <cassert>
 #include <algorithm>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
 
 namespace ProtoFS {
     class FilesystemX : public FilesystemTemplate {
@@ -22,7 +25,7 @@ namespace ProtoFS {
             path = _path;
         }
 
-        std::vector<fileEntry> listDir() {
+        std::vector<fileEntry> ls() {
             //std::replace(path.begin(), path.end(), "\\", "/");
             std::vector<fileEntry> ret;
             DIR *dp;
@@ -48,6 +51,28 @@ namespace ProtoFS {
             std::copy(ret.begin()+2, ret.begin()+ret.size(), std::back_inserter(vec));
             return vec;
             #endif
+        }
+
+        bool mk(fileEntry entry) {
+            int ret;
+            if (entry.type == File) {
+                ret = creat(entry.filePath.c_str(),S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+            }
+            else {
+                ret = mkdir(entry.filePath.c_str(),S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+            }
+            return ret == 0;
+        }
+
+        bool rm(fileEntry entry) {
+            int ret;
+            if (entry.type == File) {
+                ret = unlink(entry.filePath.c_str());
+            }
+            else {
+                ret = rmdir(entry.filePath.c_str());
+            }
+            return ret == 0;
         }
     };
 }
