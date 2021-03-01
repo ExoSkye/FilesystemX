@@ -16,7 +16,7 @@ namespace ProtoFS {
             path = _path;
         }
 
-        std::vector<fileEntry> listDir() override {
+        std::vector<fileEntry> ls() override {
             std::vector<fileEntry> ret;
             WIN32_FIND_DATA data;
             HANDLE hFind = FindFirstFile(path.append("*.*").c_str(), &data);      // DIRECTORY
