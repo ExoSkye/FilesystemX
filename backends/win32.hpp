@@ -44,7 +44,7 @@ namespace ProtoFS {
 
         bool mk(fileEntry entry) override {
             HANDLE ret;
-            if (entry.type == Folder) {
+            if (entry.type == File) {
                 ret = CreateFileA(
                         entry.filePath.c_str(),
                         GENERIC_WRITE,          // Desired access
